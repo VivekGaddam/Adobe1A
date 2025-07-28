@@ -1,3 +1,59 @@
+How to Run
+
+There are two ways to run this solution: using Docker (recommended for the challenge) or running it locally with Python for development.
+
+Option 1: Using Docker (Recommended)
+
+This method uses the provided Dockerfile to create a container with all necessary dependencies, ensuring a consistent environment.
+
+    Build the Docker Image: From the project's root directory, run:
+    Bash
+
+docker build --platform linux/amd64 -t pdf-processor .
+
+Run the Docker Container: Use the following command to process PDFs. This command mounts your local input directory and saves results to your local output directory.
+Bash
+
+    docker run --rm -v $(pwd)/sample_dataset/pdfs:/app/input:ro -v $(pwd)/sample_dataset/outputs:/app/output --network none pdf-processor
+
+Option 2: Running Locally with Python
+
+This method is useful for local development and testing without Docker.
+
+    Prerequisites:
+
+        Python 3.10: Ensure Python 3.10 or a compatible version is installed.
+
+        System Dependencies: Install the system libraries required for the Python packages.
+
+            On Debian/Ubuntu: sudo apt-get update && sudo apt-get install -y tesseract-ocr poppler-utils
+
+            On macOS (with Homebrew): brew install tesseract poppler
+
+    Create a Virtual Environment (Recommended):
+    Bash
+
+# Create the environment
+python3.10 -m venv venv
+
+# Activate it
+source venv/bin/activate
+
+Install Python Dependencies:
+Bash
+
+pip install -r requirements.txt
+
+Download SpaCy Model:
+Bash
+
+python -m spacy download en_core_web_sm
+
+Run the Python Script:
+Note: You may need to modify the hardcoded paths in process_pdfs.py (e.g., /app/input) to point to your local directories.
+Bash
+
+python process_pdfs.py
 # Challenge 1a: PDF Processing Solution
 
 ## Overview
